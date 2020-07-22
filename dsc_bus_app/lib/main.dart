@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: Colors.green,
                   ),
                   SizedBox(
-                    width: 8.0
+                      width: 8.0
                   ),
                   Text(
                       '해양대 190 시간표',
@@ -67,15 +67,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         Icons.directions_bus
                     ),
                     title: Text('190번'),
-                    subtitle: Text('@분 남음'),
-                  )
-              ),
-              Card(
-                  child: ListTile(
-                    leading: Icon(
-                        Icons.directions_bus
-                    ),
-                    title: Text('해양대 순환버스'),
                     subtitle: Text('@분 남음'),
                   )
               ),
@@ -104,15 +95,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               SizedBox(
                 height: 12.0,
-              ),
-              Card(
-                  child: ListTile(
-                    leading: Icon(
-                        Icons.directions_bus
-                    ),
-                    title: Text('190번'),
-                    subtitle: Text('@분 남음'),
-                  )
               ),
               Card(
                   child: ListTile(

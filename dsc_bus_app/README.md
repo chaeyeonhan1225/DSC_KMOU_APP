@@ -1,6 +1,6 @@
-# busapp
+# dscbusapp
 
-DSC_KMOU_BUS_APP
+DSC_KMOU BUS APP
 
 ## Getting Started
 
