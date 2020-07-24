@@ -14,7 +14,7 @@ class BusCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Material(
-        elevation: 5,
+        elevation: 3,
         borderRadius: BorderRadius.circular(8),
         color: color,
         child: Container(
@@ -36,7 +36,7 @@ class BusCard extends StatelessWidget {
                   ),
                   SizedBox(width: 8.0),
                   Text(busName,style: TextStyle(
-                    color: Colors.white,
+                    // color: Colors.white,
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
                   ),
@@ -47,7 +47,7 @@ class BusCard extends StatelessWidget {
               Divider(color: Colors.white),
               SizedBox(height: 5.0),
               Text(minTime,style: TextStyle(
-                color: Colors.white,
+                // color: Colors.white,
                 fontSize: 15.0,
               ),
               )

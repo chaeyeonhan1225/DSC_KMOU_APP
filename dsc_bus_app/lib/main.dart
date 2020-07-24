@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
-import './BusCard.dart';
+import './style/AppColors.dart';
+import './widgets/BusCard.dart';
+import './widgets/TopContainer.dart';
+import 'package:flutter/services.dart';
 
-void main() => runApp(MyApp());
+void main(){
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    systemNavigationBarColor: AppColors.PastelLime, // navigation bar color
+    statusBarColor: AppColors.PastelBlue, // status bar color
+  ));
+  return runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -32,17 +41,31 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            margin: EdgeInsets.all(10.0),
+            color: AppColors.PastelLime,
+            height: MediaQuery.of(context).size.height,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
+                TopContainer(
+                  width: MediaQuery.of(context).size.width,
+                  height: 160.0,
+                  mainColor: AppColors.PastelBlue,
+                  child: Text("BUS",style: TextStyle(
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ))
+                ),
                 SizedBox(
                   height: 25.0,
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    SizedBox(
+                        width: 8.0
+                    ),
                     Icon(
                       Icons.done,
                       size: 22.0,
@@ -71,10 +94,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    SizedBox(
+                        width: 8.0
+                    ),
                     Icon(
                       Icons.done,
                       size: 22.0,
-                      color: Colors.green,
+                      color: AppColors.PastelOrange,
                     ),
                     SizedBox(
                         width: 8.0
@@ -106,19 +132,19 @@ class _MyHomePageState extends State<MyHomePage> {
         scrollDirection: Axis.horizontal,
         children: <Widget> [
           BusCard(
-            busName: '190번 버스',
+            busName: '190',
             minTime: '이전차: 2분 남음',
-            color: Colors.indigoAccent,
+            color:  AppColors.PastelRed,
           ),
           BusCard(
-            busName: '190번 버스',
+            busName: '190',
             minTime: '이전차: 2분 남음',
-            color: Colors.indigoAccent,
+            color:  AppColors.PastelOrange,
           ),
           BusCard(
-            busName: '190번 버스',
+            busName: '190',
             minTime: '이전차: 2분 남음',
-            color: Colors.indigoAccent,
+            color:  AppColors.PastelOrange,
           )
         ]
       )
