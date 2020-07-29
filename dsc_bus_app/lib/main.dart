@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import './style/AppColors.dart';
 import './widgets/BusCard.dart';
@@ -64,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     SizedBox(
-                        width: 8.0
+                        width: 12.0
                     ),
                     Icon(
                       Icons.done,
@@ -95,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     SizedBox(
-                        width: 8.0
+                        width: 12.0
                     ),
                     Icon(
                       Icons.done,
@@ -127,25 +128,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _buildListView(){
     return Container(
-      height: 120,
+      alignment: Alignment.center,
+      height: 250,
       child: ListView(
-        scrollDirection: Axis.horizontal,
+        // scrollDirection: Axis.horizontal,
         children: <Widget> [
           BusCard(
             busName: '190',
-            minTime: '이전차: 2분 남음',
+            minTime: '2분 남음',
             color:  AppColors.PastelRed,
           ),
           BusCard(
             busName: '190',
-            minTime: '이전차: 2분 남음',
+            minTime: '15분 남음',
             color:  AppColors.PastelOrange,
           ),
-          BusCard(
-            busName: '190',
-            minTime: '이전차: 2분 남음',
-            color:  AppColors.PastelOrange,
-          )
         ]
       )
     );

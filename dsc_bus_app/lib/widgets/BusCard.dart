@@ -18,7 +18,7 @@ class BusCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         color: color,
         child: Container(
-          height: 120,
+          height: 100,
           width: 170,
           padding: EdgeInsets.all(16),
           child: Column(
