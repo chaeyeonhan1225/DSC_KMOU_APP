@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
+        child: Container(
           child: Container(
             color: AppColors.PastelLime,
             height: MediaQuery.of(context).size.height,
@@ -62,7 +62,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   height: 25.0,
                 ),
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     SizedBox(
                         width: 12.0
@@ -88,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   height: 12.0,
                 ),
                 _buildListView(),
-                Divider(),
+                // Divider(),
                 SizedBox(
                   height: 15.0,
                 ),
