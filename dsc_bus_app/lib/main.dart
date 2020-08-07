@@ -149,12 +149,17 @@ class _MyHomePageState extends State<MyHomePage> {
                                     ),
                                   ),
                                   SizedBox(width: 22 * fullWidth * rate),
-                                  Image.asset("images/busInfo.png")
+                                  SizedBox(
+                                    width: 62,
+                                    height: 44,
+                                    child:
+                                        Image.asset("images/bus_big_image.png"),
+                                  )
                                 ],
                               ),
                               decoration: BoxDecoration(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(18)),
+                                    BorderRadius.all(Radius.circular(18)),
                                 border: Border.all(
                                     color: const Color(0xff842fb5), width: 1),
                                 boxShadow: [

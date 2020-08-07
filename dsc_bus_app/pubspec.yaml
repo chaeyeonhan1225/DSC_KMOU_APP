@@ -24,9 +24,13 @@ flutter:
     - images/iconmonstr-bus.png
     - images/iconmonstrBus1240@2x.png
     - images/iconmonstrBus1240@3x.png
-    - images/busInfo.png
+    - images/bus_big_image.png
+    - images/TopContainer.png
 fonts:
   - family: NotoSansKR
     fonts:
       - asset: fonts/NotoSansKR-Medium.otf
+  - family: NotoSansKR-Light
+    fonts:
+      - asset: fonts/NotoSansKR-Light.otf
 
