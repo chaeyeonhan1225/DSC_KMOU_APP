@@ -1,61 +1,65 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import '../widgets/BusInfo.dart';
 
 class BusCard extends StatelessWidget {
-  final String busName;
-  final String minTime;
-  final Color color;
+  final String title;
+  final double width;
+  final List<Widget> children;
 
-  const BusCard(
-      {Key key,@required this.busName, @required this.minTime,@required this.color})
-      : super(key:key);
+  const BusCard({Key key, @required this.title, @required this.width, @required this.children})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Material(
-        elevation: 3,
-        borderRadius: BorderRadius.circular(8),
-        color: color,
-        child: Container(
-          height: 100,
-          width: 170,
-          padding: EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Icon(
-                    Icons.directions_bus,
-                    color: Colors.white,
-                    size: 20.0,
-                  ),
-                  SizedBox(width: 8.0),
-                  Text(busName,style: TextStyle(
-                    // color: Colors.white,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  )
-                ],
-              ),
-              SizedBox(height: 5.0),
-              Divider(color: Colors.white),
-              SizedBox(height: 5.0),
-              Text(minTime,style: TextStyle(
-                // color: Colors.white,
-                fontSize: 15.0,
-              ),
-              )
-            ],
+    double rate = 1 / 375.0;
+    double fullWidth = MediaQuery.of(context).size.width;
+    return Container(
+      padding: EdgeInsets.only(
+        left: 15,
+        right: 14,
+        top: 12,
+        bottom: 22,
+      ),
+      width: width,
+
+      // height: 185,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            title,
+            style: const TextStyle(
+              color: const Color(0xff131415),
+              fontWeight: FontWeight.w600,
+              fontFamily: "NotoSansKR",
+              fontStyle: FontStyle.normal,
+              fontSize: 18.0,
+            ),
+          ),
+          Divider(
+            thickness: 1,
+            color: const Color(0xff842fb5),
+          ),
+          SizedBox(height: 3.0),
+          Column(
+            children: children,
+          ),
+        ],
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(18)),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0x80cacaca),
+            offset: Offset(0, -1),
+            blurRadius: 16,
+            spreadRadius: 2,
           )
-        ),
+        ],
+        color: const Color(0xffffffff),
       ),
     );
   }
-
 }
