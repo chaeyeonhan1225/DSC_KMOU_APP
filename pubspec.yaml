@@ -1,0 +1,33 @@
+name: dscbusapp
+description: DSC_KMOU BUS APP
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^0.1.3
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+  uses-material-design: true
+  assets:
+    - images/BusPage/bus_min1.jpg
+    - images/BusPage/bus_min2.jpg
+    - images/BusPage/commuterbus.png
+    - images/BusPage/TopContainer.png
+fonts:
+  - family: NotoSansKR
+    fonts:
+      - asset: fonts/NotoSansKR-Medium.otf
+  - family: NotoSansKR-Light
+    fonts:
+      - asset: fonts/NotoSansKR-Light.otf
+
