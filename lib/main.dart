@@ -6,6 +6,7 @@ import './widgets/TopContainer.dart';
 import './widgets/BusCard.dart';
 import './widgets/BusInfo.dart';
 import './BusPage.dart';
+import 'dart:convert';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -39,10 +40,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Future<String> _fetch1() async {
-    dynamic response = await http.get('http://192.168.75.191:3000/test');
-    // print(response);
-    return response.body.toString();
+  Future<Map<dynamic,dynamic>> _fetch1() async {
+    try {
+      http.Response  response = await http.get('http://192.168.75.191:3000/api/bus');
+      final busInfo = json.decode(response.body);
+      print(busInfo);
+      return  busInfo;
+    } catch (err) {
+      return {
+        "status": err
+      };
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -117,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          snapshot.data,
+                                          snapshot.data["status"],
                                           style: const TextStyle(
                                             color: const Color(0xffffffff),
                                             fontWeight: FontWeight.w300,
@@ -135,6 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                               BusInfo(
                                                 width: 100 * fullWidth * rate,
                                                 title: "해양대",
+                                                timeTable: snapshot.data["result"],
                                               ),
                                             ]),
                                         SizedBox(height: 30.0),
@@ -145,16 +154,19 @@ class _MyHomePageState extends State<MyHomePage> {
                                               BusInfo(
                                                 width: 100 * fullWidth * rate,
                                                 title: "해양대",
+                                                timeTable: snapshot.data["result"],
                                               ),
                                               SizedBox(height: 14.0),
                                               BusInfo(
                                                 width: 100 * fullWidth * rate,
-                                                title: "부산대",
+                                                title: "부산역",
+                                                timeTable: snapshot.data["result"],
                                               ),
                                               SizedBox(height: 14.0),
                                               BusInfo(
                                                 width: 100 * fullWidth * rate,
                                                 title: "영도대교",
+                                                timeTable: snapshot.data["result"],
                                               ),
                                             ]),
                                         SizedBox(height: 39.0),
