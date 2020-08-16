@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import './widgets/TopContainer.dart';
 import './widgets/BusCard.dart';
@@ -10,14 +11,13 @@ import 'dart:convert';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.dark// transparent status bar
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark // transparent status bar
   ));
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -40,22 +40,26 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Future<Map<dynamic,dynamic>> _fetch1() async {
+  Future<Map<dynamic, dynamic>> _fetch1() async {
     try {
-      http.Response  response = await http.get('http://192.168.75.191:3000/api/bus');
+      print("future 실행!");
+      http.Response response =
+      await http.get('http://192.168.75.191:3000/api/bus');
       final busInfo = json.decode(response.body);
       print(busInfo);
-      return  busInfo;
+      return busInfo;
     } catch (err) {
-      return {
-        "status": err
-      };
+      return {"status": err};
     }
   }
+
   @override
   Widget build(BuildContext context) {
     double rate = 1 / 375.0;
-    double fullWidth = MediaQuery.of(context).size.width;
+    double fullWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -110,10 +114,54 @@ class _MyHomePageState extends State<MyHomePage> {
                 FutureBuilder(
                     future: _fetch1(),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      if (snapshot.hasData == false) {
-                        return CircularProgressIndicator();
+                      print(snapshot.connectionState != ConnectionState.active);
+                      if (snapshot.connectionState != ConnectionState.active) {
+                        return Center(
+                          child: Column(
+                            children: <Widget>[
+                              SizedBox(height: 20.0),
+                              Text(
+                                "서버와 연결되지 않음",
+                                style: const TextStyle(
+                                  color: const Color(0xffffffff),
+                                  fontWeight: FontWeight.w300,
+                                  fontFamily: "NotoSansKR",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                      else if (snapshot.hasData == false) {
+                        return Column(
+                          children: <Widget>[
+                            SizedBox(height: 20.0),
+                            Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
+                          ],
+                        );
                       } else if (snapshot.hasError) {
-                        return Text("Error");
+                        return Column(
+                          children: <Widget>[
+                            SizedBox(height: 20.0),
+                            Text(
+                              "Error",
+                              style: const TextStyle(
+                                color: const Color(0xffffffff),
+                                fontWeight: FontWeight.w300,
+                                fontFamily: "NotoSansKR",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 20.0,
+                              ),
+                            ),
+                          ],
+                        );
                       } else {
                         return Column(
                           children: <Widget>[
@@ -122,7 +170,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
                                           snapshot.data["status"],
@@ -143,7 +192,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                               BusInfo(
                                                 width: 100 * fullWidth * rate,
                                                 title: "해양대",
-                                                timeTable: snapshot.data["result"],
+                                                timeTable:
+                                                snapshot.data["result"],
                                               ),
                                             ]),
                                         SizedBox(height: 30.0),
@@ -154,19 +204,22 @@ class _MyHomePageState extends State<MyHomePage> {
                                               BusInfo(
                                                 width: 100 * fullWidth * rate,
                                                 title: "해양대",
-                                                timeTable: snapshot.data["result"],
+                                                timeTable:
+                                                snapshot.data["result"],
                                               ),
                                               SizedBox(height: 14.0),
                                               BusInfo(
                                                 width: 100 * fullWidth * rate,
                                                 title: "부산역",
-                                                timeTable: snapshot.data["result"],
+                                                timeTable:
+                                                snapshot.data["result"],
                                               ),
                                               SizedBox(height: 14.0),
                                               BusInfo(
                                                 width: 100 * fullWidth * rate,
                                                 title: "영도대교",
-                                                timeTable: snapshot.data["result"],
+                                                timeTable:
+                                                snapshot.data["result"],
                                               ),
                                             ]),
                                         SizedBox(height: 39.0),
@@ -175,26 +228,32 @@ class _MyHomePageState extends State<MyHomePage> {
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                    builder: (context) => BusPage()));
+                                                    builder: (context) =>
+                                                        BusPage()));
                                           },
                                           child: Container(
                                             width: 355 * fullWidth * rate,
                                             height: 100,
                                             child: Row(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                               children: <Widget>[
                                                 Text(
                                                   "통근 버스 정보",
                                                   style: const TextStyle(
-                                                    color: const Color(0xff131415),
+                                                    color:
+                                                    const Color(0xff131415),
                                                     fontWeight: FontWeight.w500,
                                                     fontFamily: "NotoSansKR",
                                                     fontStyle: FontStyle.normal,
                                                     fontSize: 28.0,
                                                   ),
                                                 ),
-                                                SizedBox(width: 22 * fullWidth * rate),
+                                                SizedBox(
+                                                    width:
+                                                    22 * fullWidth * rate),
                                                 SizedBox(
                                                   width: 62,
                                                   height: 44,
@@ -204,13 +263,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                               ],
                                             ),
                                             decoration: BoxDecoration(
-                                              borderRadius:
-                                              BorderRadius.all(Radius.circular(18)),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(18)),
                                               border: Border.all(
-                                                  color: const Color(0xff842fb5), width: 1),
+                                                color: const Color(0xff842fb5),
+                                                width: 1,),
                                               boxShadow: [
                                                 BoxShadow(
-                                                    color: const Color(0x80cacaca),
+                                                    color:
+                                                    const Color(0x80cacaca),
                                                     offset: Offset(0, -1),
                                                     blurRadius: 16,
                                                     spreadRadius: 2)
@@ -226,13 +287,15 @@ class _MyHomePageState extends State<MyHomePage> {
                           ],
                         );
                       }
-                    }
-                ),
-
+                    }),
               ],
             ),
           )
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.refresh),
+        backgroundColor: Color(0xff842fb5),
       ),
     );
   }
