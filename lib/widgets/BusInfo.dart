@@ -109,8 +109,11 @@ class BusInfo extends StatelessWidget {
                   bottom: 4.0,
                 ),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
                           timeTable[1]["min"],
@@ -123,7 +126,6 @@ class BusInfo extends StatelessWidget {
                             letterSpacing: -0.28,
                           ),
                         ),
-                        Spacer(),
                         Text(
                           timeTable[1]["content"],
                           style: const TextStyle(
@@ -138,6 +140,7 @@ class BusInfo extends StatelessWidget {
                     ),
                     Spacer(),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
                           "다다음차",
@@ -149,7 +152,6 @@ class BusInfo extends StatelessWidget {
                             fontSize: 12.0,
                           ),
                         ),
-                        Spacer(),
                         SizedBox(
                           width: 20,
                           height: 20,
