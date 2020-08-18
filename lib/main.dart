@@ -14,7 +14,8 @@ void main() {
     statusBarColor: Colors.transparent, // transparent status bar
     systemNavigationBarColor: Colors.black, // navigation bar color
     statusBarIconBrightness: Brightness.dark, // status bar icons' color
-    systemNavigationBarIconBrightness: Brightness.dark, //navigation bar icons' color // transparent status bar
+    systemNavigationBarIconBrightness:
+        Brightness.dark, //navigation bar icons' color // transparent status bar
   ));
   runApp(MyApp());
 }
@@ -35,10 +36,17 @@ class MyApp extends StatelessWidget {
 class BusData {
   final String status;
   final String cur;
-  final Map<String, Map<String, dynamic>> min190;
-  final Map<String, Map<String, dynamic>> minShuttle;
+  final Map<dynamic, dynamic> result;
 
-  BusData({Key key, this.status, this.cur, this.min190, this.minShuttle});
+  BusData({Key key, this.status, this.cur, this.result});
+
+  factory BusData.fromJson(Map<String, dynamic> json) {
+    return BusData(
+      status: json['status'],
+      cur: json['cur'],
+      result: json['result'],
+    );
+  }
 }
 
 class MyHomePage extends StatefulWidget {
@@ -51,18 +59,61 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Future<Map<dynamic, dynamic>> busData;
+  Future<BusData> busData;
 
-  Future<Map<dynamic, dynamic>> _fetch1() async {
+  Future<BusData> _fetch1() async {
     try {
       print("future 실행!");
       http.Response response =
-          await http.get('http://192.168.75.191:3000/api/bus');
-      final busInfo = json.decode(response.body);
-      print(busInfo);
-      return busInfo;
+          await http.get('http://192.168.1.102:3000/api/bus');
+      if (response.statusCode == 200) {
+        // final busInfo = json.decode(response.body);
+        return BusData.fromJson(json.decode(response.body));
+      } else {
+        throw Exception("Failed to load data");
+      }
     } catch (err) {
-      return {"status": err};
+      print("error!");
+      return BusData.fromJson({
+        "status": "error",
+        "cur": "error",
+        "result": {
+          "bus190": {
+            "week": [
+              {"min": "", "content": ""},
+              {"min": "", "content": ""},
+              {"min": "", "content": ""}
+            ],
+            "saturday": [
+              {"min": "", "content": ""},
+              {"min": "", "content": ""},
+              {"min": "", "content": ""}
+            ],
+            "weekend": [
+              {"min": "", "content": ""},
+              {"min": "", "content": ""},
+              {"min": "", "content": ""}
+            ]
+          },
+          "shuttle": {
+            "week": [
+              {"min": "", "content": ""},
+              {"min": "", "content": ""},
+              {"min": "", "content": ""}
+            ],
+            "vacation": [
+              {"min": "", "content": ""},
+              {"min": "", "content": ""},
+              {"min": "", "content": ""}
+            ],
+            "exam": [
+              {"min": "", "content": ""},
+              {"min": "", "content": ""},
+              {"min": "", "content": ""}
+            ]
+          }
+        }
+      });
     }
   }
 
@@ -147,7 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  FutureBuilder<Map> buildFutureBuilder(double fullWidth, double rate) {
+  FutureBuilder<BusData> buildFutureBuilder(double fullWidth, double rate) {
     return FutureBuilder(
         future: busData,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -164,7 +215,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             );
+          } else if (snapshot.hasError) {
+            return Text("error");
           } else {
+            print(snapshot.data);
             return Column(
               children: <Widget>[
                 Container(
@@ -177,7 +231,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             Chip(
                               backgroundColor:
                                   Colors.deepPurple.withOpacity(0.8),
-                              label: Text(snapshot.data["cur"],
+                              label: Text(snapshot.data.cur,
                                   style: const TextStyle(
                                     color: const Color(0xffffffff),
                                     fontWeight: FontWeight.w300,
@@ -194,21 +248,21 @@ class _MyHomePageState extends State<MyHomePage> {
                                   BusInfo(
                                     width: 100 * fullWidth * rate,
                                     title: "평일",
-                                    timeTable: snapshot.data["result"]
+                                    timeTable: snapshot.data.result
                                         ["shuttle"]["week"],
                                   ),
                                   SizedBox(height: 14.0),
                                   BusInfo(
                                     width: 100 * fullWidth * rate,
                                     title: "방학 / 주말",
-                                    timeTable: snapshot.data["result"]
+                                    timeTable: snapshot.data.result
                                         ["shuttle"]["vacation"],
                                   ),
                                   SizedBox(height: 14.0),
                                   BusInfo(
                                     width: 100 * fullWidth * rate,
                                     title: "시험기간",
-                                    timeTable: snapshot.data["result"]
+                                    timeTable: snapshot.data.result
                                         ["shuttle"]["exam"],
                                   ),
                                 ]),
@@ -220,21 +274,21 @@ class _MyHomePageState extends State<MyHomePage> {
                                   BusInfo(
                                     width: 100 * fullWidth * rate,
                                     title: "평일",
-                                    timeTable: snapshot.data["result"]["bus190"]
+                                    timeTable: snapshot.data.result["bus190"]
                                         ["week"],
                                   ),
                                   SizedBox(height: 14.0),
                                   BusInfo(
                                     width: 100 * fullWidth * rate,
                                     title: "토요일",
-                                    timeTable: snapshot.data["result"]["bus190"]
+                                    timeTable: snapshot.data.result["bus190"]
                                         ["saturday"],
                                   ),
                                   SizedBox(height: 14.0),
                                   BusInfo(
                                     width: 100 * fullWidth * rate,
                                     title: "일요일 / 공휴일",
-                                    timeTable: snapshot.data["result"]["bus190"]
+                                    timeTable: snapshot.data.result["bus190"]
                                         ["weekend"],
                                   ),
                                 ]),
