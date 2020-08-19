@@ -50,41 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Container(),
-              SizedBox(height: 16.0),
-              Text(
-                "통근 버스 정보",
-                style: TextStyle(
-                  fontSize: 30.0,
-                  fontFamily: "NotoSansKR",
-                  color: Color(0xff842fb5),
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              SizedBox(height: 20.0),
-              CommuterCard(
-                cardtitle: BusRoute(
-                  title: "통근버스 1호차",
-                  info: "서면/구서동",
-                  busnum: "72무6540",
-                ),
-              ),
-              SizedBox(height: 16.0),
-              CommuterCard(
-                cardtitle: BusRoute(
-                  title: "통근버스 2호차",
-                  info: "남포동/문현동",
-                  busnum: "72무6347",
-                ),
-              ),
-              SizedBox(height: 16.0),
-              CommuterCard(
-                cardtitle: BusRoute(
-                  title: "통근버스 3호차",
-                  info: "경성대/수영",
-                  busnum: "72고9959",
-                ),
-              ),
+
             ],
           ),
         ),
