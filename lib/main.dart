@@ -65,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       print("future 실행!");
       http.Response response =
-          await http.get('http://192.168.1.102:3000/api/bus');
+          await http.get('https://us-central1-kmouin-62d7f.cloudfunctions.net/api/bus');
       if (response.statusCode == 200) {
         // final busInfo = json.decode(response.body);
         return BusData.fromJson(json.decode(response.body));
